@@ -11,6 +11,25 @@ end;
 var pessoas : array [1..100] of Pessoa;
 var resp : char;
 var i : integer;
+var imc : real;
+var result : string;
+
+function calculaImc (peso : integer; altura : real) : real;
+begin
+  calculaImc := peso / (altura * altura);
+end;
+
+function avaliaImc (imc : real) : string;
+begin      
+  if(imc < 18.5) then 
+    Exit('Abaixo do Peso')
+  else if(imc < 25 ) then
+    Exit('Normal')
+  else if(imc < 30 ) then
+    Exit('Acima do Peso')
+  else
+    Exit('Obesidade')
+end; 
 
 begin
   resp := 's';
@@ -41,7 +60,16 @@ begin
 
   for i:= 1 to i do
   begin
-    writeln('Nome: ', pessoas[i].Nome, ' | Peso: ', pessoas[i].Peso, 'kg', ' | Altura: ', pessoas[i].Altura:1:2);
+    imc := calculaImc(pessoas[i].Peso, pessoas[i].Altura);
+    result := avaliaImc(imc);
+
+    writeln(
+      'Nome: ', pessoas[i].Nome, 
+      ' | Peso: ', pessoas[i].Peso, 'kg', 
+      ' | Altura: ', pessoas[i].Altura:1:2,
+      ' | IMC: ', imc:1:2, 'kg/m²',
+      ' | Situação: ', result
+      );
     writeln();
   end;
 
